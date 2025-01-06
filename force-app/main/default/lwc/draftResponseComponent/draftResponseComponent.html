@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Draft Response" icon-name="standard:case">
+        <div class="slds-p-around_medium">
+            <lightning-input-rich-text
+                value={draftResponse}
+                placeholder="Write your draft response here..."
+                onchange={handleInputChange}
+                class="custom-rich-text"
+            ></lightning-input-rich-text>
+            <div class="save-indicator">
+                {saveIndicator}
+            </div>
+        </div>
+    </lightning-card>
+</template>
