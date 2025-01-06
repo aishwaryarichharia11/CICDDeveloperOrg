@@ -1,5 +1,5 @@
 import { LightningElement, api, wire } from 'lwc';
-import { getRecord, updateRecord } from 'lightning/uiRecordApi';
+import { getRecord, updateRecord, getRecordNotifyChange } from 'lightning/uiRecordApi'; // Import getRecordNotifyChange
 
 const FIELDS = ['Case.CRM_Draft_Response__c'];
 
@@ -25,7 +25,7 @@ export default class AutoSaveRichText extends LightningElement {
             clearTimeout(this.saveTimeout);
         }
         this.isSaving = true;
-        this.saveTimeout = setTimeout(() => this.saveDraftResponse(), 1000);
+        this.saveTimeout = setTimeout(() => this.saveDraftResponse(), 500);
     }
 
     saveDraftResponse() {
@@ -35,6 +35,9 @@ export default class AutoSaveRichText extends LightningElement {
         updateRecord(recordInput)
             .then(() => {
                 this.isSaving = false;
+
+                // Notify Lightning Data Service about the record update
+                getRecordNotifyChange([{ recordId: this.recordId }]);
             })
             .catch(() => {
                 this.isSaving = false;
