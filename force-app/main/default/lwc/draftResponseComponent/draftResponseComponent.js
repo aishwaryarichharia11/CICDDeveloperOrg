@@ -69,3 +69,6 @@ export default class AutoSaveRichText extends LightningElement {
         const richTextEditor = this.template.querySelector('lightning-input-rich-text');
         if (richTextEditor) {
             // Use a timeout to ensure the
+    }
+}
+}
