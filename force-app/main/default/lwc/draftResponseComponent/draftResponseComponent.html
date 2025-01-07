@@ -3,7 +3,7 @@
         <div class="slds-p-around_medium">
             <lightning-input-rich-text
                 value={draftResponse}
-                placeholder="Write your draft response here... CICD"
+                placeholder="Write your draft response here..."
                 onchange={handleInputChange}
                 class="custom-rich-text"
             ></lightning-input-rich-text>
@@ -11,5 +11,12 @@
                 {saveIndicator}
             </div>
         </div>
+
+        <!-- Lightning Flow -->
+        <lightning-flow
+            onstatuschange={handleFlowFinish}
+            flow-name="Your_Flow_API_Name"
+            data-id={recordId}
+        ></lightning-flow>
     </lightning-card>
 </template>
