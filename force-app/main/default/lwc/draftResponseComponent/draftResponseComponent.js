@@ -59,40 +59,10 @@ export default class AutoSaveRichText extends LightningElement {
         return this.isSaving ? 'Saving...' : 'Saved';
     }
 
-    renderedCallback() {
-        // Wait for the DOM to render and customize the toolbar
-        this.applyDefaultStyles();
-    }
-
-    applyDefaultStyles() {
-        // Access the rich text input DOM
-        const richTextEditor = this.template.querySelector('lightning-input-rich-text');
-        if (richTextEditor) {
-            // Use a timeout to ensure the toolbar is available
-            setTimeout(() => {
-                const toolbar = richTextEditor.shadowRoot.querySelector('.ql-toolbar');
-                if (toolbar) {
-                    // Set the default font to Arial
-                    const fontDropdown = toolbar.querySelector('.ql-font');
-                    if (fontDropdown) {
-                        fontDropdown.value = 'Arial';
-                        fontDropdown.dispatchEvent(new Event('change')); // Apply change
-                    }
-
-                    // Set the default font size to 16px
-                    const sizeDropdown = toolbar.querySelector('.ql-size');
-                    if (sizeDropdown) {
-                        sizeDropdown.value = '16px';
-                        sizeDropdown.dispatchEvent(new Event('change')); // Apply change
-                    }
-                }
-            }, 100); // Delay to ensure toolbar is ready
-        }
-    }
-
     // Handle Flow Finished Event
     handleFlowFinish(event) {
-        // Refresh the record after the Screen Flow finishes
-        refreshApex(this.wiredRecord);
+        // Trigger a global page refresh to ensure all components are updated
+        const refreshEvent = new CustomEvent('force:refreshView');
+        this.dispatchEvent(refreshEvent);
     }
 }
